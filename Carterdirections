@@ -1,0 +1,59 @@
+package CarterDIR;
+
+import java.util.ArrayList;
+
+public class cjdirections {
+
+    public static void main(String[] args) {
+        String[] directions = new String[] { "NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST" };
+
+        
+
+        System.out.println("Before Reduction:");
+        for (String s : directions) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+
+        directions = dirReduc(directions);
+
+        System.out.println("After Reduction:");
+        for (String s : directions) {
+            System.out.print(s + " ");
+        }
+        System.out.println();
+    }
+
+    public static String[] dirReduc(String[] arr) {
+        int count = 0;
+        ArrayList<String> ori = new ArrayList<String>();
+        for (String s : arr) {
+            ori.add(s);
+        }
+        // Something else has to happen here...
+        boolean reducing = true;
+        while (reducing == true) {
+            count++;
+            reducing = false;
+            for (int i = 0; i < ori.size() - 1; i++) {
+                if ((ori.get(i).equals("NORTH") && ori.get(i + 1).equals("SOUTH"))
+                        || (ori.get(i).equals("SOUTH") && ori.get(i + 1).equals("NORTH"))
+                        || (ori.get(i).equals("EAST") && ori.get(i + 1).equals("WEST"))
+                        || (ori.get(i).equals("WEST") && ori.get(i + 1).equals("EAST"))) {
+                    
+                    reducing = true;
+                    ori.remove(i);
+                    ori.remove(i);
+                    i--;
+                }
+            }
+        }
+
+        String[] end = new String[ori.size()];
+        for (int i = 0; i < ori.size(); i++) {
+            end[i] = ori.get(i);
+        }
+        System.out.println("We ran "+count+" loops.");
+        return end;
+    }
+}
